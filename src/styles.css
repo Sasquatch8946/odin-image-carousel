@@ -17,7 +17,7 @@ img {
     by -300, to choose which image is displayed
     probably should have wrap the container in another div
     to center everything on the screen */
-    left: -300px;
+    left: 0px;
     top: 0px;
 }
 
@@ -28,14 +28,10 @@ img {
     position: absolute;
     top: 68px;
     bottom: 0px;
+    left: 600px;
 }
 
-.wrapper {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    place-items: center;
-    margin-top: 50px;
-}
+
 
 .middle {
     display: flex;
@@ -43,4 +39,41 @@ img {
     align-items: center;
     width: 100%;
     height: 0px;
+}
+
+.previous,
+.next {
+    position: relative;
+    top: 150px;
+}
+
+.next {
+    left: 918px;
+}
+
+.previous {
+    left: 574px;
+    top: 168px;
+}
+
+.previous:hover,
+.next:hover {
+    cursor: pointer;
+}
+
+.circle {
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 20px;
+    width: 20px;
+    border: 1px solid black;
+}
+
+.circle-container {
+    position: relative;
+    z-index: 1;
+    bottom: 20px;
+    left: 120px;
+    display: flex;
+    gap: 2px;
 }
