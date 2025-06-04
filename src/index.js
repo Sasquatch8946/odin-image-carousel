@@ -22,20 +22,20 @@ const ImageCarousel = (function() {
         return numPx;
     }
 
-    const minusPos = function decrementPosition(pictureFrame, numPx) {
-        const numPxInt = parseInt(numPx);
-        if (numPxInt > -600) {
-            const newPos = numPxInt - 300;
-            pictureFrame.style.left = `${newPos}px`;
+    const minusPos = function decrementPosition() {
+        if (slideIndx > 0) {
+            slideIndx = slideIndx - 1;
         }
+        setFramePos(slideIndx);
+        fillBubble(slideIndx);
     }
 
-    const plusPos = function incrementPosition(pictureFrame, numPx) {
-        const numPxInt = parseInt(numPx);
-        if (numPxInt < 0) {
-            const newPos = numPxInt + 300;
-            pictureFrame.style.left = `${newPos}px`;
+    const plusPos = function incrementPosition() {
+        if (slideIndx < 2) {
+            slideIndx = slideIndx + 1;
         }
+        setFramePos(slideIndx);
+        fillBubble(slideIndx);
     }
 
 
@@ -44,7 +44,7 @@ const ImageCarousel = (function() {
         prev.addEventListener("click", () => {
             const pictureFrame = getPictureFrame();
             const numPx = getCurrentPos(pictureFrame);
-            plusPos(pictureFrame, numPx);
+            minusPos(pictureFrame, numPx);
         });
 
     }
@@ -54,7 +54,7 @@ const ImageCarousel = (function() {
         next.addEventListener("click", () => {
             const pictureFrame = getPictureFrame();
             const numPx = getCurrentPos(pictureFrame);
-            minusPos(pictureFrame, numPx);
+            plusPos(pictureFrame, numPx);
         });
     }
 
@@ -81,6 +81,7 @@ const ImageCarousel = (function() {
         circles.forEach((c) => {
             c.addEventListener("click", (event) => {
                 const indx = circles.indexOf(event.target);
+                slideIndx = indx;
                 fillBubble(indx);
                 setFramePos(indx);
             });
@@ -88,13 +89,11 @@ const ImageCarousel = (function() {
     }
 
     const progressSlideShow = function() {
-        console.log("progressing slide show");
         if (slideIndx < 2) {
             slideIndx = slideIndx + 1;
         } else {
             slideIndx = 0;
         }
-
         fillBubble(slideIndx);
         setFramePos(slideIndx);
     } 
