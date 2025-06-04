@@ -1,0 +1,25 @@
+img {
+    height: 300px;
+    width: 300px;
+}
+
+.picture-frame {
+    display: flex;
+    height: 300px;
+    width: 900px;
+    position: relative;
+    /* increment the below property 
+    by -300, to choose which image is displayed
+    probably should have wrap the container in another div
+    to center everything on the screen */
+    left: -600px;
+}
+
+.container {
+    display: grid;
+    place-items: center;
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+    position: absolute;
+}
