@@ -8,6 +8,8 @@ const ImageCarousel = (function() {
         2: -600,
     }
 
+    let slideIndx = 0;
+
     const getPictureFrame = function() {
         return document.querySelector('.picture-frame');
 
@@ -56,17 +58,56 @@ const ImageCarousel = (function() {
         });
     }
 
-    const fillBubble = function() {
+    const fillBubble = function(indx) {
         const circles = Array.from(document.querySelectorAll('.circle'));
         const filledIn = circles.filter((c) => c.style.backgroundColor !== '');
         if (filledIn.length === 0) {
-            circles[0].style.backgroundColor = "black";
+            circles[0].style.backgroundColor = 'black';
+        } else {
+            circles.forEach((c) => {
+                c.style.backgroundColor = '';
+            });
+            circles[indx].style.backgroundColor = 'black';
         }
+    }
+
+    const setFramePos = function(indx) {
+        const pictureFrame = getPictureFrame();
+        pictureFrame.style.left = `${posKey[indx]}px`;
+    }
+
+    const activateBubbleNav = function() {
+        const circles = Array.from(document.querySelectorAll('.circle'));
+        circles.forEach((c) => {
+            c.addEventListener("click", (event) => {
+                const indx = circles.indexOf(event.target);
+                fillBubble(indx);
+                setFramePos(indx);
+            });
+        })
+    }
+
+    const progressSlideShow = function() {
+        console.log("progressing slide show");
+        if (slideIndx < 2) {
+            slideIndx = slideIndx + 1;
+        } else {
+            slideIndx = 0;
+        }
+
+        fillBubble(slideIndx);
+        setFramePos(slideIndx);
+    } 
+
+    const showSlides = function() {
+        setInterval(progressSlideShow, 5000);
     }
 
     activatePrevButton();
     activateNextButton();
     fillBubble();
+    activateBubbleNav();
+    showSlides();
 
     return {
     }
